@@ -1,0 +1,176 @@
+# story-generator<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор Историй</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            color: #333;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+        .story {
+            font-size: 1.5em;
+            line-height: 1.6;
+            margin-top: 20px;
+            min-height: 100px;
+        }
+        .settings {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        .settings-panel {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+        .settings-panel input,
+        .settings-panel select {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 5px;
+            font-size: 1em;
+        }
+        .settings-panel label {
+            font-size: 1em;
+            display: block;
+            margin-bottom: 5px;
+        }
+        button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="settings" onclick="toggleSettings()">⚙️</div>
+        <div class="settings-panel" id="settings-panel">
+            <label for="theme">Тема:</label>
+            <select id="theme" onchange="changeTheme()">
+                <option value="light">Светлая</option>
+                <option value="dark">Тёмная</option>
+            </select>
+            <label for="font">Шрифт:</label>
+            <select id="font" onchange="changeFont()">
+                <option value="Arial">Arial</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select>
+            <label for="brightness">Яркость:</label>
+            <input type="range" id="brightness" min="50" max="100" value="100" oninput="changeBrightness()">
+        </div>
+        <button onclick="generateStory()">Сгенерировать историю</button>
+        <div class="story" id="story"></div>
+    </div>
+    <script>
+        const beginnings = [
+            "Однажды",
+            "В далёкой-далёкой галактике",
+            "В мрачные времена",
+            "На окраине маленького городка",
+            "В одном из замков Средневековья"
+        ];
+
+        const middles = [
+            "произошло нечто странное",
+            "герой встретил своего врага",
+            "началась удивительная история",
+            "судьба приготовила испытание",
+            "появилось неведомое существо"
+        ];
+
+        const ends = [
+            "и мир изменился навсегда.",
+            "и история закончилась счастливо.",
+            "и началась новая эра.",
+            "и все мечты сбылись.",
+            "и никто не узнал, что было дальше."
+        ];
+
+        function typeText(element, text) {
+            let i = 0;
+            element.textContent = '';
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                }
+            }
+            type();
+        }
+
+        function generateStory() {
+            const beginning = beginnings[Math.floor(Math.random() * beginnings.length)];
+            const middle = middles[Math.floor(Math.random() * middles.length)];
+            const end = ends[Math.floor(Math.random() * ends.length)];
+
+            const story = `${beginning}, ${middle}, ${end}`;
+            const storyElement = document.getElementById("story");
+            typeText(storyElement, story);
+        }
+
+        function toggleSettings() {
+            const panel = document.getElementById("settings-panel");
+            panel.style.display = panel.style.display === "none" || panel.style.display === "" ? "block" : "none";
+        }
+
+        function changeTheme() {
+            const theme = document.getElementById("theme").value;
+            if (theme === "dark") {
+                document.body.style.backgroundColor = "#333";
+                document.body.style.color = "#fff";
+            } else {
+                document.body.style.backgroundColor = "#f0f0f0";
+                document.body.style.color = "#333";
+            }
+        }
+
+        function changeFont() {
+            const font = document.getElementById("font").value;
+            document.body.style.fontFamily = font;
+        }
+
+        function changeBrightness() {
+            const brightness = document.getElementById("brightness").value;
+            document.body.style.filter = `brightness(${brightness}%)`;
+        }
+    </script>
+</body>
+</html>
