@@ -1,9 +1,9 @@
-# story-generator<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Генератор Историй</title>
+    <title>Генератор Историй для вас!</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -95,7 +95,7 @@
             <label for="brightness">Яркость:</label>
             <input type="range" id="brightness" min="50" max="100" value="100" oninput="changeBrightness()">
         </div>
-        <button onclick="generateStory()">Сгенерировать историю</button>
+        <button onclick="generateStory()">Сгенерировать вашу историю</button>
         <div class="story" id="story"></div>
     </div>
     <script>
@@ -108,7 +108,7 @@
         ];
 
         const middles = [
-            "произошло нечто странное",
+            "произошло нечто ужасное и странное",
             "герой встретил своего врага",
             "началась удивительная история",
             "судьба приготовила испытание",
